@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Emoji Generator</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        #emoji-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+        }
+        .emoji {
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Emoji Generator</h1>
+    <input type="number" id="emojiCount" placeholder="Enter number of emojis" min="1" max="100" />
+    <button id="generateBtn">Generate Emojis</button>
+    <div id="emoji-container"></div>
+
+    <script>
+        const emojis = ['😀', '😂', '😍', '😎', '🤔', '😢', '😡', '🥳', '😱', '😴'];
+        const container = document.getElementById('emoji-container');
+        const generateBtn = document.getElementById('generateBtn');
+
+        generateBtn.addEventListener('click', () => {
+            const count = parseInt(document.getElementById('emojiCount').value);
+            container.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                const emoji = document.createElement('div');
+                emoji.className = 'emoji';
+                emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                const angle = Math.random() * 2 * Math.PI;
+                const radius = Math.random() * 100;
+                emoji.style.transform = `translate(${Math.cos(angle) * radius}px, ${Math.sin(angle) * radius}px)`;
+                container.appendChild(emoji);
+            }
+        });
+    </script>
+</body>
+</html>

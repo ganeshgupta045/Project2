@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Emoji Generator</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content">
+            <h1> Random Emoji Generator </h1>
+            <p class="subtitle">Create beautiful circular emoji patterns</p>
+            
+            <div class="input-group">
+                <input type="number" id="emojiCount" placeholder="Enter number of emojis" min="1" max="200" value="50" />
+                <button id="generateBtn">Generate Emojis</button>
+            </div>
+        </div>
+        
+        <div id="emoji-container"></div>
+    </div>
+
+    <script src="../js/emoji.js"></script>
+</body>
+</html>
