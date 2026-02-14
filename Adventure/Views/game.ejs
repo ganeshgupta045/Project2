@@ -1,0 +1,41 @@
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+  }
+  h1 {
+    color: #333;
+  }
+  p {
+    font-size: 18px;
+    color: #555;
+  }
+  button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  </style>
+
+<h1>🏕️ Text Adventure</h1>
+
+<p><%= sceneText %></p>
+
+<% if (Object.keys(options).length > 0) { %>
+  <form method="POST" action="/choice">
+    <% for (let option in options) { %>
+      <button name="next" value="<%= options[option] %>">
+        <%= option.toUpperCase() %>
+      </button>
+    <% } %>
+  </form>
+<% } else { %>
+  <p>Game Ended.</p>
+  <a href="/game/start">Restart</a>
+<% } %>

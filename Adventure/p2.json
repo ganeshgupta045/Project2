@@ -1,0 +1,31 @@
+{
+  "start": {
+    "text": "You see a mysterious tent in the forest at night.",
+    "options": {
+      "enter": "insideTent",
+      "leave": "deepForest"
+    }
+  },
+  "insideTent": {
+    "text": "Inside the tent you find a treasure chest.",
+    "options": {
+      "open": "treasure",
+      "leave": "start"
+    }
+  },
+  "deepForest": {
+    "text": "You walk deeper into the forest and hear wolves howling.",
+    "options": {
+      "run": "wolfAttack",
+      "return": "start"
+    }
+  },
+  "treasure": {
+    "text": "🎉 You found gold and survived!",
+    "options": {}
+  },
+  "wolfAttack": {
+    "text": "🐺 Wolves attack you. Game Over.",
+    "options": {}
+  }
+}

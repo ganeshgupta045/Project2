@@ -1,0 +1,13 @@
+{
+  "name": "adventure",
+  "version": "1.0.0",
+  "description": "A tent adventure game",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^4.0.1",
+    "express": "^5.0.0"
+  }
+}

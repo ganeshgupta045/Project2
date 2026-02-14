@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Digital Capsule</title>
+
+<style>
+  body {
+    font-family: "Times New Roman", serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1 {
+    background-color: #e6e6e6;
+    margin: 0;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .box {
+    width: 360px;
+    margin: 30px auto;
+    padding: 18px;
+    border: 1px solid #999;
+    background-color: #fafafa;
+  }
+
+  input {
+    width: 100%;
+    padding: 6px;
+    margin-top: 10px;
+    border: 1px solid #aaa;
+  }
+
+  button {
+    margin-top: 12px;
+    padding: 6px 12px;
+    background-color: #dcdcdc;
+    border: 1px solid #888;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #cfcfcf;
+  }
+
+  p {
+    margin-top: 12px;
+    font-size: 14px;
+  }
+</style>
+
+
+</head>
+<body>
+
+  <h1> Digital Capsule</h1>
+
+  <!-- Create Capsule -->
+  <div class="box">
+    <h3>Create Capsule</h3>
+    <input type="text" id="message" placeholder="Enter message">
+    <input type="datetime-local" id="unlockDate">
+    <button onclick="createCapsule()">Create</button>
+    <p id="createResult"></p>
+  </div>
+
+  <!-- Open Capsule -->
+  <div class="box">
+    <h3>Open Capsule</h3>
+    <input type="number" id="capsuleId" placeholder="Enter Capsule ID">
+    <button onclick="openCapsule()">Open</button>
+    <p id="openResult"></p>
+  </div>
+
+<script>
+async function createCapsule() {
+  const message = document.getElementById("message").value;
+  const unlockDate = document.getElementById("unlockDate").value;
+
+  const response = await fetch("/addData", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message, unlockDate })
+  });
+
+  const data = await response.json();
+  document.getElementById("createResult").innerText =
+    JSON.stringify(data);
+}
+
+async function openCapsule() {
+  const id = document.getElementById("capsuleId").value;
+
+  const response = await fetch(`/capsule/${id}`);
+  const data = await response.json();
+
+  document.getElementById("openResult").innerText =
+    JSON.stringify(data);
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
