@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Feed</title>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div style="display:flex; justify-content:space-between; padding:10px; background:#eee;">
+    <h3>Mini Instagram</h3>
+
+    <div>
+      <span><%= user.username %></span>
+      |
+      <a href="/logout">Logout</a>
+    </div>
+  </div>
+
+  <div style="padding:20px;">
+    <h2>Welcome <%= user.username %> 👋</h2>
+
+    <h2>Create Post</h2>
+
+    <form action="/create-post" method="POST" enctype="multipart/form-data">
+      <input type="text" name="caption" required>
+      <input type="file" name="image" required>
+      <button>Create</button>
+    </form>
+
+    <hr>
+
+    <% if (posts.length === 0) { %>
+      <p style="color:#999; text-align:center; margin:20px;">No posts yet</p>
+    <% } %>
+
+    <% posts.forEach((post, index) => { %>
+      <div style="border:1px solid #ddd; margin:15px 0; padding:15px; border-radius:5px; background:#fff;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <h4 style="margin:0;"><%= post.user.username %></h4>
+          <small style="color:#999;"><%= new Date(post.createdAt).toLocaleDateString() %></small>
+        </div>
+        
+        <p style="margin:10px 0;"><%= post.caption %></p>
+        
+        <% if (post.image) { %>
+          <img src="/uploads/<%= post.image %>" width="100%" style="max-width:400px; margin:10px 0; border-radius:5px; display:block;">
+        <% } else { %>
+          <p style="color:#999;">[Image not available]</p>
+        <% } %>
+
+        <% if (post.user._id.toString() === user._id.toString()) { %>
+          <div style="margin-top:10px; padding-top:10px; border-top:1px solid #eee;">
+            <span style="color:green; font-weight:bold; margin-right:10px;">Your Post</span>
+            <a href="/edit-post/<%= post._id %>" style="background:#007bff; color:white; padding:6px 12px; border:none; border-radius:3px; cursor:pointer; font-weight:bold; text-decoration:none; display:inline-block; margin-right:5px;">Edit</a>
+            <form action="/delete-post/<%= post._id %>" method="POST" style="display:inline;">
+              <button type="submit" onclick="return confirm('Delete this post?')" style="background:#dc3545; color:white; padding:6px 12px; border:none; border-radius:3px; cursor:pointer; font-weight:bold;">Delete</button>
+            </form>
+          </div>
+        <% } %>
+      </div>
+    <% }) %>
+
+    <div>
+      <% if (currentPage > 1) { %>
+        <a href="/feed?page=<%= currentPage - 1 %>">Previous</a>
+      <% } %>
+
+      <span> Page <%= currentPage %> </span>
+
+      <% if (currentPage < totalPages) { %>
+        <a href="/feed?page=<%= currentPage + 1 %>">Next</a>
+      <% } %>
+    </div>
+
+  </div>
+
+</body>
+</html>

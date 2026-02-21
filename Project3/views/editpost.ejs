@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Post</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: #2c3e50;
+      color: white;
+    }
+    .navbar h3 {
+      margin: 0;
+    }
+    .navbar a {
+      color: white;
+      margin-left: 15px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+    input[type="text"],
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    input[type="text"]:focus,
+    input[type="file"]:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    }
+    .image-preview {
+      margin-top: 15px;
+      padding: 15px;
+      background: #f9f9f9;
+      border-radius: 4px;
+    }
+    .image-preview img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      max-height: 300px;
+    }
+    .image-preview p {
+      margin: 0;
+      color: #666;
+      font-size: 14px;
+    }
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    button,
+    a.btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      font-size: 14px;
+    }
+    .btn-update {
+      background: #28a745;
+      color: white;
+    }
+    .btn-update:hover {
+      background: #218838;
+    }
+    .btn-cancel {
+      background: #6c757d;
+      color: white;
+    }
+    .btn-cancel:hover {
+      background: #5a6268;
+    }
+    .success {
+      color: #28a745;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <h3>Mini Instagram</h3>
+    <div>
+      <span><%= user.username %></span>
+      <a href="/logout">Logout</a>
+    </div>
+  </div>
+
+  <!-- EDIT FORM -->
+  <div class="container">
+    <h1>Edit Post</h1>
+
+    <form action="/update-post/<%= post._id %>" method="POST" enctype="multipart/form-data">
+      
+      <!-- Caption -->
+      <div class="form-group">
+        <label for="caption">Caption:</label>
+        <input 
+          type="text" 
+          id="caption" 
+          name="caption" 
+          value="<%= post.caption %>" 
+          required
+          placeholder="Write your caption here..."
+        >
+      </div>
+
+      <!-- Current Image -->
+      <div class="image-preview">
+        <p><strong>Current Image:</strong></p>
+        <% if (post.image) { %>
+          <img src="/uploads/<%= post.image %>" alt="Current post image">
+          <p style="margin-top:10px; color:#666;">Click 'Choose file' below to change the image</p>
+        <% } else { %>
+          <p>[No image]</p>
+        <% } %>
+      </div>
+
+      <!-- New Image (Optional) -->
+      <div class="form-group">
+        <label for="image">Change Image (Optional):</label>
+        <input 
+          type="file" 
+          id="image" 
+          name="image" 
+          accept="image/*"
+        >
+        <p class="success" style="margin-top:5px;">Leave empty to keep current image</p>
+      </div>
+
+      <!-- Buttons -->
+      <div class="button-group">
+        <button type="submit" class="btn-update">Update Post</button>
+        <a href="/feed" class="btn btn-cancel">Cancel</a>
+      </div>
+
+    </form>
+  </div>
+
+</body>
+</html>
